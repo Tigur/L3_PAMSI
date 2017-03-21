@@ -13,6 +13,14 @@ public:
 
     bool insert(type value, int position)
     {
+
+        if (position>size)
+        {
+            cerr<< "There is no " << position << ". element in the List !"<< endl;
+
+            return false;
+        }
+
         cell <type> * ptr1= &head;
         cell <type> * tmp = nullptr;
 
@@ -34,12 +42,22 @@ public:
 
     bool del( int position) // możliwy seg "kasowanie nizaalokowane pamieci"
     {
+
+        if (position>size)
+        {
+            cerr<< "There is no " << position << ". element in the List !" << endl;
+
+                                              return false;
+        }
+
+
+
         cell <type> * ptr2=&head;
         cell <type> * tmp = nullptr;
 
         for (int i=1;i<position;++i)
         {
-            ptr=(*ptr2).next;
+            ptr2=(*ptr2).next;
         }
         tmp=(*ptr2).next;
         (*ptr2).next=(*(*ptr2).next).next;
@@ -50,8 +68,15 @@ public:
         return true;
     }
 
-    void delAll() // możliwy seg
+    bool delAll() // możliwy seg
     {
+        if (size ==0)
+        {
+            cerr<< "There is not a single element in the List !" << endl;
+
+            return false;
+        }
+
         cell <type> * tmp;
 
         for( int i=0;i<size;i++)
@@ -59,6 +84,7 @@ public:
             tmp=head.next;
             head.next=(*tmp).next;
             free(tmp);
+            size=0;
         }
 
 
@@ -68,15 +94,35 @@ public:
     {
         cell <type> * tmp;
         tmp= new cell <type> ;
-        (*tmp).next= head.next;
-        head.next=tmp;
+        /*if (size=0)
+        {
+            (*tmp).value=value;
+            (*tmp).next= &head;
+        }*/
+
+            (*tmp).value=value;
+            (*tmp).next= head.next;
+            head.next=tmp;
+
+
+
+
+
+        size++;
 
 
     }
 
     void show()
     {
-        
+        cell <type> * tmp = head.next;
+
+        for (int i=1;i<=size;++i)
+        {
+            cout << tmp->value << endl;
+            tmp=(*tmp).next;
+
+        }
     }
 
 
@@ -100,8 +146,12 @@ int main()
     L.push(1);
     L.push(2);
     L.push(3);
+    L.push(25);
+    L.del(3);
+    L.insert(2,2);
+    L.insert(7,30);
 
-
+ L.show();
 
 
     return 0;
