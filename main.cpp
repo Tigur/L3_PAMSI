@@ -11,8 +11,27 @@ public:
 
     int size=0;
 
-    bool insert(type value, int position)
+    bool insert()
     {
+
+        type value;
+        int position;
+
+        if(size==0)
+        {
+            (*this).push();
+
+            return true;
+        }
+
+
+        cout << "enter value : "<< endl;
+        cin >> value;
+        cout << "enter position where the record should be placed : " << endl;
+        cin >> position ;
+
+
+
 
         if (position>size)
         {
@@ -40,8 +59,13 @@ public:
         return true;
     }
 
-    bool del( int position) // możliwy seg "kasowanie nizaalokowane pamieci"
+    bool del( ) // możliwy seg "kasowanie nizaalokowane pamieci"
     {
+
+        int position;
+
+        cout << "enter position that should be erased: " << endl;
+        cin >> position ;
 
         if (position>size)
         {
@@ -90,8 +114,13 @@ public:
 
     }
 
-    void push(type value)
+    void push()
     {
+        type value;
+
+        cout << "enter value of element :" << endl;
+        cin >> value;
+
         cell <type> * tmp;
         tmp= new cell <type> ;
         /*if (size=0)
@@ -128,11 +157,14 @@ public:
 
 
 
+
+
+
+
 };
 
 
-int main()
-
+void menu (List <int> & L)
 {
 
 
@@ -141,17 +173,63 @@ int main()
 
 
 
+    int option;
+
+   // cin >> option;
+
+
+
+    while ( option!=6)
+    {
+        cout <<"\n\n";
+        cout << "1. push new element on the beginning of the List" << endl;
+        cout << "2.insert element somewhere into the list"<< endl;
+        cout << "3. delete an element of your choosing "<< endl;
+        cout << "4. clear the List "<< endl;
+        cout << "5. show the list"<< endl;
+        cout << "6. EXIT" << endl;
+        cout << "choose option :\n "<< endl;
+        cin >> option;
+        cout << "\n";
+
+        switch (option)
+        {
+            case 1 : // dodaj element na początku.
+                L.push();
+                break;
+            case 2 :
+                L.insert();
+                break;
+            case 3:
+                L.del();
+                break;
+            case 4:
+                L.delAll();
+                break;
+
+            case 5:
+                L.show();
+                break;
+
+            case 6:
+                break;
+        }
+    }
+
+}
+
+
+int main()
+
+{
+
+
     List <int> L;
 
-    L.push(1);
-    L.push(2);
-    L.push(3);
-    L.push(25);
-    L.del(3);
-    L.insert(2,2);
-    L.insert(7,30);
+    menu(L);
 
- L.show();
+
+
 
 
     return 0;
